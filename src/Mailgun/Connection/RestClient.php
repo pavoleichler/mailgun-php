@@ -38,6 +38,8 @@ class RestClient
     public function __construct($apiKey, $apiEndpoint, $apiVersion, $ssl, $defaults)
     {
         
+        $this->apiKey = $apiKey;
+        
         $defaults = array_merge([
                 'auth' => array(Api::API_USER, $this->apiKey),
                 'exceptions' => false,
@@ -47,7 +49,7 @@ class RestClient
                 ],
             ], $defaults);
         
-        $this->apiKey = $apiKey;
+        
         $this->mgClient = new Guzzle([
             'base_url'=>$this->generateEndpoint($apiEndpoint, $apiVersion, $ssl),
             'defaults'=>$defaults
