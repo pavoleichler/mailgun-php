@@ -35,19 +35,22 @@ class RestClient
      * @param string $apiVersion
      * @param bool   $ssl
      */
-    public function __construct($apiKey, $apiEndpoint, $apiVersion, $ssl)
+    public function __construct($apiKey, $apiEndpoint, $apiVersion, $ssl, $defaults)
     {
-        $this->apiKey = $apiKey;
-        $this->mgClient = new Guzzle([
-            'base_url'=>$this->generateEndpoint($apiEndpoint, $apiVersion, $ssl),
-            'defaults'=>[
+        
+        $defaults = array_merge_recursive([
                 'auth' => array(Api::API_USER, $this->apiKey),
                 'exceptions' => false,
                 'config' => ['curl' => [ CURLOPT_FORBID_REUSE => true ]],
                 'headers' => [
                     'User-Agent' => Api::SDK_USER_AGENT.'/'.Api::SDK_VERSION,
                 ],
-            ],
+            ], $defaults);
+        
+        $this->apiKey = $apiKey;
+        $this->mgClient = new Guzzle([
+            'base_url'=>$this->generateEndpoint($apiEndpoint, $apiVersion, $ssl),
+            'defaults'=>$defaults
         ]);
     }
 

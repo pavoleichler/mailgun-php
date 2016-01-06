@@ -32,10 +32,11 @@ class Mailgun{
      * @param string $apiEndpoint
      * @param string $apiVersion
      * @param bool $ssl
+     * @param array $guzzle Advanced Guzzle settings
      */
-    public function __construct($apiKey = null, $apiEndpoint = "api.mailgun.net", $apiVersion = "v3", $ssl = true){
+    public function __construct($apiKey = null, $apiEndpoint = "api.mailgun.net", $apiVersion = "v3", $ssl = true, $guzzle = []){
         $this->apiKey = $apiKey;
-        $this->restClient = new RestClient($apiKey, $apiEndpoint, $apiVersion, $ssl);
+        $this->restClient = new RestClient($apiKey, $apiEndpoint, $apiVersion, $ssl, $guzzle);
     }
 
     /**
