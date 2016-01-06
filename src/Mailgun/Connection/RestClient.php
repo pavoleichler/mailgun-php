@@ -38,7 +38,7 @@ class RestClient
     public function __construct($apiKey, $apiEndpoint, $apiVersion, $ssl, $defaults)
     {
         
-        $defaults = array_merge_recursive([
+        $defaults = array_merge([
                 'auth' => array(Api::API_USER, $this->apiKey),
                 'exceptions' => false,
                 'config' => ['curl' => [ CURLOPT_FORBID_REUSE => true ]],
